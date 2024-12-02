@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <title>weahter</title>
+</head>
+<style>
+    *{
+    padding: 0px;
+    margin: 0px;
+    font-family:sans-serif;
+}
+
+body{
+    background-color: #EBE7EE;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100vh;
+    width: 100 vw;
+}
+html,
+body{
+    font-size: 62.5%;
+    height: 100%;
+}
+html{
+    background-color: #B9ABC4;
+}
+.main{
+    height: 500px;
+    width: 350px;
+    background-color: #8BBDF6;
+    border-radius: 10px;
+    border:2px solid #3C8FED ;
+    overflow: hidden;
+    position: fixed;
+    bottom: 100px;
+    transform: translate3d(0,0,0);
+    box-shadow: 0 0. 2rem 3rem rgba(0,0,0.2);
+    min-width: 20rem;
+    min-height: 35rem;
+    
+}
+#weahtercon{
+    text-align: center;
+    font-size: 70px;
+    padding-top: 70px;
+    font-size: 6rem;
+    animation: fas-sun 2s linear  infinite alternate;
+
+    
+}
+
+.wave-one{
+    height: 500px;
+    width: 500px;
+    border-radius: 300px;
+    border: 2px solid transparent;
+    opacity: 0.3;
+    position: absolute;
+    top: 170%;
+    left: 50%;
+    margin-top: -62rem;
+    margin-left: -22rem;
+    background-color: white;
+    border: 2px solid transparent;
+    border-top: 20px solid transparent;
+    animation-name: spinAnimate;
+    animation-duration: 1s;
+    animation-timing-function:ease-out;
+    animation-delay:0s ;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    overflow: hidden;
+}
+.wave-two{
+    opacity: 0.2;
+    position: absolute;
+    top: 177%;
+    left: 50%;
+    margin-top: -61rem;
+    margin-left: -18rem;
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    border-radius: 300px;
+    border: 2px solid transparent;
+    border-top: 20px solid transparent;
+    animation-name: spinAnimate;
+    animation-duration: 1s;
+    animation-timing-function:ease-out;
+    animation-delay:0s ;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    overflow: hidden;
+
+}
+.wave-three{
+    opacity: 0.5;
+    position: absolute;
+    top: 170%;
+    left: 50%;
+    margin-top: -59rem;
+    margin-left: -22rem;
+    background-color: white;
+    height: 500px;
+    width: 500px;
+    border-radius: 300px;
+    border: 2px solid transparent;
+    border-top: 20px solid transparent;
+    animation-name: spinAnimate;
+    animation-duration: 1s;
+    animation-timing-function:ease-out;
+    animation-delay:0s ;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    overflow: hidden;
+
+  
+    
+ }
+ .main::after{
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    width:  100%;
+    height: 100%;
+    z-index: 11;
+    transform: translate(0,0,0,);
+    
+}
+
+@keyframes spinAnimate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+} 
+
+.info{
+    position: relative;
+    top: 130px;
+    left: 100px;
+}
+.location{
+    font-size: 35px;
+}
+#date{
+margin-top: 10px;    
+font-size: 15px;
+    margin-left: 25px;
+    color: #525054;
+}
+.temp{
+    font-size: 40px;
+    margin-top: 23px;
+    margin-left: 15px;
+    filter: blur(100,265,68,);
+
+
+}
+.tempmin_max{
+    font-size: 15px;
+    margin-top: 25px;
+    margin-left: 10px;
+
+
+
+}
+.fa-street-view{
+    animation: rotestion 1s linear 0s infinite alternate;
+
+}
+@keyframes rotestion{
+    form{
+        transform: translateX(-0.6rem);
+    }
+    to{
+        transform: translateX(0.6rem);
+    }
+}
+
+
+
+@keyframes fas-sun{
+    form{
+        transform: translateX(-0.6rem);
+        transform: scale(0.8);
+    }
+    to{
+        transform: translateX(0.6rem);
+        transform: scale(2);
+
+    }
+}
+
+
+</style>
+<body>
+    <div class="main">
+        <div class="wave-one"></div>
+        <div class="wave-two"></div>
+        <div class="wave-three"></div>
+
+        <div id="weahtercon">
+            <i class="fa-solid fa-sun" style="color: #ecb911dc;"></i>
+        </div>
+        <div class="info">
+            <!--acsing the API Currntvalue to using{% %} and acssing the node file-->
+            <h2 class="location"><i class="fa-solid fa-street-view"style="color:#1c0658dc"></i>
+                {%location%},{%country%}</h2>
+            <p id="date">WED | OCT 23 |10:49AM</p>
+            <h1 class="temp">{% tempval%}°C</h1>
+            <h3 class="tempmin_max">Min {% tempmin%} | Max {% tempmax%}</h3>
+        </div>
+    </div>
+    <script>
+const date1 =document.getElementById("date");
+const weahtercon =document.getElementById("weahtercon");
+const tempStatus ="{% tempStatus%}";
+
+ if(tempStatus =="Sunny"){
+    weahtercon.innerHTML =
+    "<i class='fa-solid fa-sun' style='color: #ecb911dc;'></i>";
+ }
+//  else if(tempStatus =="Clouds"){
+//      weahtercon.innerHTML=
+//      "<i class='fa-solid fa-cloud' style='color:black></i>";
+//  }
+//  else if(tempStatus =="Rain"){
+//     weahtercon.innerHTML=
+//     "<i class='fa-duotone fa-solid fa-cloud-rain' style='color:blue></i>";
+//  }
+//  else{
+//         weahtercon.innerHTML =
+//         "<i class='fa-regular fa-cloud'style='color:white></i>";
+    
+//  }
+
+const getCurrentDay = () =>{
+    var weekday =new Array(7);
+    weekday[0]="Sun";
+    weekday[1]="Mon"; 
+    weekday[2]="Tue"; 
+    weekday[3]="Wed";
+    weekday[4]="Ths";
+    weekday[5]="Fri";
+    weekday[6]="Sat";
+
+    let currentTime =new Date();
+    let day=(weekday[currentTime.getDay()]);
+    return day;
+
+};
+
+// getCurrentDay();
+
+
+const getCurrentTime =()=>{
+
+let months = new Array (12) 
+    months[0]="Jan";
+    months[1]="Feb";
+    months[2]="Mar";
+    months[3]="Apr";
+    months[4]="may";
+    months[5]="June";
+    months[6]="July";
+    months[7]="Aug";
+    months[8]="Sept";
+    months[9]="Oct";
+    months[10]= "Nov";
+    months[11]="Dec";
+
+
+let now =new Date();
+let month= now.getMonth() + 1;
+let date= now.getDate();
+
+console.log(month  +"/" + date);
+// getCurrentTime();
+
+let hours= now.getHours();
+let mins =now.getMinutes();
+
+let periods ="AM";
+
+if(hours>11){
+    periods ="PM";
+    if(hours >12) hours -=12;
+}
+if(mins <10){
+    mins ="0" + mins;
+}
+
+ return`${month} ${date}  | ${hours} :${mins} ${periods}` ;
+
+
+};
+date1.innerHTML = getCurrentDay() + " | " + getCurrentTime();
+
+
+
+
+    </script>
+    
+</body>
+</html>
